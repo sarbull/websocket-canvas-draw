@@ -11,8 +11,24 @@
     <script src="/socket.io/socket.io.js"></script>
   </head>
   <body>
-    <div id="drawingPad">
-      <!-- This is where all the code will be place dynamically -->
+    <div class="wrapper">
+      <div id="drawingPad">
+        <!-- This is where all the code will be place dynamically -->
+      </div>
+
+      <div id="chat">
+        <div class="messages">
+          <ul>
+            <li>
+              <strong>sarbull</strong>: hello, world
+            </li>
+          </ul>
+        </div>
+
+        <div class="input">
+          <input type="text">
+        </div>
+      </div>
     </div>
 
     <script type="text/javascript">
