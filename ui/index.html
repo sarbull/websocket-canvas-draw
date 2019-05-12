@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>Whiteboard Collaboration Draw</title>
+    <link type="text/css" href="./css/bootstrap.min.css" rel="stylesheet" />
+    <link type="text/css" href="./css/drawpad.css" rel="stylesheet" />
+
+    <script src="./js/jquery-1.10.2.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+    <script src="./js/drawing.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+  </head>
+  <body>
+    <div id="drawingPad">
+      <!-- This is where all the code will be place dynamically -->
+    </div>
+
+    <script type="text/javascript">
+      $(document).bind("touchmove", function (e) {
+        e.preventDefault();
+      });
+
+      // overriding default options
+      var options = {
+        width: 800,
+        height: 500
+      },
+      //init the drawpad
+      dp = new DrawingPad(options);
+      dp.init("#drawingPad");
+    </script>
+  </body>
+</html>
