@@ -2,6 +2,16 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+#drawingPad {
+  background-image: url('../img/whiteboard.jpeg');
+  background-repeat: no-repeat;
+  background-position: top left;
+  width: 906px;
+  height: 560px;
+  background-position-x: 75px;
+  background-position-y: 5px;
+}
+
 .sprite {
   display: inline-block;
   overflow: hidden;
@@ -66,15 +76,15 @@ body {
   cursor: pointer;
 }
 
-.toolbar li.selected, .toolbar li.hover {
-  border: 4px solid #000;
-}
+/* .toolbar li.selected, .toolbar li.hover {
+  border: 2px solid #000;
+} */
 
 .sharedCanvas, .myCanvas {
-  border: 2px solid #ccc;
+  /* border: 2px solid #ccc; */
   position: absolute;
-  top: 10px;
-  left: 80px;
+  top: 34px;
+  left: 100px;
   z-index: 2;
 }
 
