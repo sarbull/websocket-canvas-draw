@@ -17,10 +17,7 @@
 
   app.use(express.static('ui'));
 
-  // const server = require('http').createServer(app);
-
-  const server = app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
-
+  const server = require('http').createServer(app);
 
   app.post('/update', (req, res) => {
     let newImage = req.body.newImage;
@@ -119,5 +116,5 @@
     });
   });
 
-  // server.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
+  server.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
 }).call(this);

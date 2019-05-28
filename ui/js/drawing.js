@@ -495,6 +495,15 @@ DrawingPad = function (options) {
       return setConfirmShare(data);
     });
 
+    DP.thisObj.socket.on('message', function (data) {
+      let list = document.querySelector('#list');
+      let el = document.createElement('li');
+
+      el.innerHTML = `<strong>Dunno</strong>: ${data.message}`;
+
+      list.append(el);
+    });
+
     //set event handlers
     _setEventHandlers();
 
