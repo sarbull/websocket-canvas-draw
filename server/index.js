@@ -27,12 +27,6 @@
     res.send('updated');
   });
 
-  app.get('/send', (req, res) => {
-    globalSocket.emit("message", { message: req.query.message });
-
-    res.send('OK');
-  });
-
   app.get('/image.png', (req, res) => {
     let base64String = imageBmp; // Not a real image
 
@@ -114,6 +108,12 @@
         id: data.id
       });
     });
+  });
+
+  app.get('/send', (req, res) => {
+    globalSocket.emit("message", { message: req.query.message });
+
+    res.send('OK');
   });
 
   server.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
