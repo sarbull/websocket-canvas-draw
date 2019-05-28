@@ -1,15 +1,64 @@
 (function () {
+  const fs = require('fs');
+  const bodyParser = require('body-parser');
   const express = require('express');
   const socketio = require('socket.io');
   const PORT = process.env.PORT || 3000;
-
   const app = express();
-  const server = require('http').createServer(app);
-  const io = socketio.listen(server);
 
+  let globalSocket = null;
+  let imageBmp = '';
+
+  app.use(bodyParser.json());
+
+  app.use(bodyParser.urlencoded({
+    extended: true
+  }));
+
+  app.use(express.static('ui'));
+
+  // const server = require('http').createServer(app);
+
+  const server = app.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
+
+
+  app.post('/update', (req, res) => {
+    let newImage = req.body.newImage;
+
+    imageBmp = newImage;
+
+    res.send('updated');
+  });
+
+  app.get('/send', (req, res) => {
+    globalSocket.emit("message", { message: req.query.message });
+
+    res.send('OK');
+  });
+
+  app.get('/image.png', (req, res) => {
+    let base64String = imageBmp; // Not a real image
+
+    // Remove header
+    let base64Image = base64String.split(';base64,').pop();
+
+    fs.writeFile('./server/image.png', base64Image, {encoding: 'base64'}, function(err, data) {
+
+      fs.readFile('./server/image.png', function(err, data) {
+        if (err) throw err; // Fail if the file can't be read.
+
+        res.writeHead(200, {'Content-Type': 'image/png'});
+        res.end(data); // Send the file data to the browser.
+      });
+    });
+  });
+
+  const io = socketio.listen(server);
   let connectedClients = {}; //used to keep a working list of the connections
 
   io.sockets.on('connection', function (socket) {
+    globalSocket = socket;
+
     //added clients
     socket.on("setClientId", function (data) {
       connectedClients[data.id] = {
@@ -70,8 +119,5 @@
     });
   });
 
-
-  app.use(express.static('ui'));
-
-  server.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
+  // server.listen(PORT, () => console.log(`Example app listening on port ${PORT}!`))
 }).call(this);

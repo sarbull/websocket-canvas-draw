@@ -44,6 +44,23 @@
       //init the drawpad
       dp = new DrawingPad(options);
       dp.init("#drawingPad");
+
+      setInterval(() => {
+        var canvas = document.querySelector('#drawingPad').getElementsByTagName('canvas')[1]
+
+        if(canvas) {
+          fetch('/update', {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              newImage: canvas.toDataURL("image/png")
+            })
+          });
+        }
+      }, 1000);
     </script>
   </body>
 </html>
