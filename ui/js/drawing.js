@@ -509,7 +509,7 @@ DrawingPad = function (options) {
       let list = document.querySelector('#list');
       let el = document.createElement('li');
 
-      el.innerHTML = `<strong>Dunno</strong> (${formatDate(new Date())}): ${data.message}`;
+      el.innerHTML = `<strong>Dunno</strong> (${formatDate('MM/DD/YYYY, HH:mm:ss', new Date())}): ${data.message}`;
 
       list.prepend(el);
     });
